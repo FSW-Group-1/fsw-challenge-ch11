@@ -1,0 +1,60 @@
+.playgame {
+    /* background: radial-gradient(hsl(214, 47%, 23%) to hsl(237, 49%, 15%)); */
+    background: radial-gradient(circle, hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+    min-height: 100vh;
+  }
+  
+  .cardinfo {
+    width: 60%;
+    margin: 0 auto;
+    color: aliceblue;
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  
+  .cardscore {
+    background-color: white;
+    padding: 5px 20px;
+    color: #3b4363;
+    border-radius: 10px;
+  }
+  
+  .gameplay {
+    width: 75%;
+    margin: 0 auto 0;
+  }
+  
+  .btngame {
+    width: 120px;
+    height: 120px;
+    box-shadow: inset 0 5px 6px grey, 0 2px;
+    border-radius: 100%;
+    background-color: white;
+    transform: scale(1);
+    transition: 0.3s;
+  }
+  
+  .btngame:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+  }
+  
+  .btngamecomputer {
+    transform: scale(1.5);
+  }
+  
+  .reset:hover {
+    cursor: pointer;
+  }
+  
+  .btnrules {
+    background-color: rgb(90, 88, 88);
+    padding: 0px 50px;
+    color: #3b4363;
+    border-radius: 10px;
+    border: none;
+    font-size: 25px;
+    color: white;
+  }
+  

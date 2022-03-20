@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.main {
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+.header {
+    padding-top: 5em;
+    background-image: linear-gradient(transparent 5em, black), url(/assets/istockphoto-1154634349-612x612.jpg), url(/assets/istockphoto-1154634349-612x612.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;   
+}
+
+.header h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 5em;
+    font-weight: bold;
+    color: white;
+}
+
+@media (max-width: 435px) {
+    .header h1 {
+        font-size: 4em;
+    }
+}
+
+@media(max-width: 768px) {
+    .header h1 {
+        font-size: 4em
+    }
+}
+
+.header h2 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+}
+
+.header p {
+    color: white
+}
+
+.main-button {
+    font-family: 'Open Sans', sans-serif;
+    width: 20%;
+    background-image: linear-gradient(194.68deg, #FFB548 11.27%, #F3AF34 90.4%);
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 4px;
+    color: black;
+}
+
+
+@media(min-width: 992px) {
+    .main-button {
+        font-size: 0.8em;
+    }
+}
+
+@media(max-width: 576px) {
+    .main-button {
+        font-family: 'Open Sans', sans-serif;
+        width: 100%;
+        background-image: linear-gradient(194.68deg, #FFB548 11.27%, #F3AF34 90.4%);
+        font-size: 1em;
+        font-weight: bold;
+        border-radius: 4px;
+        color: black;
+    }
+    #text-main-button {
+        font-size: 0.8rem;
+    }
+}
+
+.gameList h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
+
+    border-top: 5px solid white;
+    border-bottom: 5px solid white;
+}
+
+.gameList .game-list-name {
+    color: white;
+    font-weight: bold;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 150%;
+}
