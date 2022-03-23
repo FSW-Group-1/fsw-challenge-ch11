@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import styles from "../styles/Index.module.css"
 import axios from 'axios';
 
+import { connect } from "react-redux";
+import homeAction from "../redux/action/homeAction";
+
 import { Container, Row, Col} from 'react-bootstrap'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -44,41 +47,39 @@ class GameCard extends Component {
   }
 }
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      gameList: [],
-      isLoading: true
-    }
+    this.state = {}
   }
 
   componentDidMount () {
-    this.getGameList()
+    // this.getGameList()
+    this.props.getGameList()
   }
 
-  async getGameList () {
-    try {
-      const config = {
-        headers: {
-            authorization: `${localStorage.getItem('accessToken')}`,
-        },
-      }
-      axios.get(`https://fsw-challenge-ch10-api-dev.herokuapp.com/api/allgame`, config)
-        .then(res => {
-          this.setState({
-            gameList: res.data.data,
-            isLoading: false
-          })
-        })
+  // async getGameList () {
+  //   try {
+  //     const config = {
+  //       headers: {
+  //           authorization: `${localStorage.getItem('accessToken')}`,
+  //       },
+  //     }
+  //     axios.get(`https://fsw-challenge-ch10-api-dev.herokuapp.com/api/allgame`, config)
+  //       .then(res => {
+  //         this.setState({
+  //           gameList: res.data.data,
+  //           isLoading: false
+  //         })
+  //       })
 
-    } catch (error) {
-      console.log(error)
-      this.setState({
-        isLoading: false
-      })
-    }
-  }
+  //   } catch (error) {
+  //     console.log(error)
+  //     this.setState({
+  //       isLoading: false
+  //     })
+  //   }
+  // }
 
   get LoadingGameList () {
     return(
@@ -92,7 +93,7 @@ export default class Home extends Component {
   }
 
   get contentGameList () {
-    const gameList = this.state.gameList
+    const gameList = this.props.gameList.data
     const games = () => {
       return (
         <>
@@ -117,12 +118,13 @@ export default class Home extends Component {
     }
     return(
       <>
-        { this.state.gameList.length ? games() : noGames() }
+        { this.props.gameList.data ? games() : noGames() }
       </>
     )
   }
 
   render () {
+    console.log(this.props.gameList)
     return (
       <Layout title="Home">
         <div className='bg-black pt-5 pb-5'>
@@ -159,7 +161,7 @@ export default class Home extends Component {
                   </Row>
               </Container>
               <Container>
-                { this.state.isLoading ?  this.LoadingGameList : this.contentGameList}
+                { this.props.gameList.isLoading ?  this.LoadingGameList : this.contentGameList}
               </Container>
             </div>
             <Container>
@@ -175,3 +177,8 @@ export default class Home extends Component {
     )
   } 
 }
+
+export default connect(
+  state => state,
+  homeAction
+)(Home)
