@@ -10,46 +10,40 @@ import Link from 'next/link'
 import styles from '../../styles/GameDetail.module.css'
 
 import axios from 'axios'
+import { connect } from 'react-redux'
+import gameDetailAction from "../../redux/action/gameDetailAction";
 
-const GameDetail = () => {
+const GameDetail = (props) => {
     const router = useRouter()
     const { url } = router.query
     let gameUrl = 'https://fsw-challenge-ch10-api-dev.herokuapp.com/api/gamedetail/'
     gameUrl = gameUrl + url
 
-    const [data, setData] = useState()
+    // const [data, setData] = useState()
     const [isLoading, setIsLoading] = useState(true)
+    const [didMount, setDidMount] = useState(true)
 
-    useEffect(() => {
-        if(isLoading) {
-            try {
-                const config = {
-                  headers: {
-                      authorization: `${localStorage.getItem('accessToken')}`,
-                  },
-                }
-                axios.get(gameUrl, config)
-                  .then(res => {
-                    setData(res.data.data)
-                    setIsLoading(false)
-                })
-          
-              } catch (error) {
-                console.log(error)
-                setIsLoading({
-                  isLoading: false
-                })
-            }
+    useEffect(async() => {
+        if(didMount) {
+            await props.getGameDetail(url)
+            setDidMount(props.getGameDetail.isLoading)
         }
+        // if(props.gameDetail.isLoading) {
+        //     // this.props.getGameDetail()
+        //     console.log('ladida')
+        // }
+        // props.getGameDetail()
     })
 
     const loadingContent = () => {
+        // console.log(props)
         return (
             <LoadingAnimation />
         )
     }
 
     const content = () => {
+        const data = props.gameDetail.data
         let imagePath_ = "/../public/assets/game-card-img/"
         if(!data.imageLink) {
             data.imageLink = "dummy.png"
@@ -111,7 +105,7 @@ const GameDetail = () => {
                     <Container className={styles.header} fluid>
                         <div className='pt-3 pb-3'>
                             <Container>
-                                { isLoading ?  loadingContent() : content()}
+                                { props.gameDetail.isLoading ?  loadingContent() : content()}
                                 {/* <h1>{data.name}</h1> */}
                             </Container>
                         </div>
@@ -121,4 +115,8 @@ const GameDetail = () => {
     )
 }
 
-export default GameDetail
+// export default GameDetail
+export default connect(
+    state => state,
+    gameDetailAction
+)(GameDetail)
