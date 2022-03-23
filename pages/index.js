@@ -124,7 +124,7 @@ class Home extends Component {
   }
 
   render () {
-    console.log(this.props.gameList)
+    // console.log(this.props.gameList)
     return (
       <Layout title="Home">
         <div className='bg-black pt-5 pb-5'>
