@@ -26,7 +26,7 @@ const getGameList = () => async (dispatch) => {
             type: GAMELIST_FAILED,
             payload: error.response.data.result
         })
-        console.log(error.response.data.result)
+        // console.log(error.response.data.result)
     }
 }
 
