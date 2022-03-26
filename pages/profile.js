@@ -55,8 +55,9 @@ class Profile extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props.profile)
+    // console.log(this.props.profile)
     const result = this.props.profile
+    console.log(result)
     if(!result.isLoading && this.state.isLoading) {
       this.setState({
         data: result.data,
@@ -64,7 +65,7 @@ class Profile extends Component {
         description: result.data.description,
         point: result.data.point,
         image: result.data.iamge,
-        details: result.data.details,
+        details: result.data.Details,
         isLoading: false
       })
     }
@@ -132,10 +133,8 @@ class Profile extends Component {
 
   render() {
     const { details } = this.state
-    // details.data = this.props.profile.data
-    // console.log(this.props.profile)
+    // console.log(this.props.auth)
     // console.log(details)
-    // console.log(this.state.data)
     return (
       <Layout title="Profile">
         <div>
