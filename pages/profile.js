@@ -27,30 +27,6 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    // const config = {
-    //   headers: {
-    //     authorization: `${localStorage.getItem('accessToken')}`,
-    //   },
-    // }
-
-    // this.props.getProfile().then(data => {
-    //   console.log(data)
-    // })
-    // this.setState({
-    //   data: this.props.profile.data
-    // })
-
-    // axios.get(`https://fsw-challenge-ch10-api-dev.herokuapp.com/api/me`, config).then((res) => {
-    //   // console.log(res)
-    //   this.setState({
-    //     data: res.data.data,
-    //     username: res.data.data.username,
-    //     description: res.data.data.description,
-    //     point: res.data.data.point,
-    //     image: res.data.data.imageLink,
-    //     details: res.data.data.Details,
-    //   })
-    // })
     this.props.getProfile()
   }
 
