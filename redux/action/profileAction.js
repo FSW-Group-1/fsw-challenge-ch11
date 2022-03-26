@@ -7,7 +7,6 @@ const apiURL = 'https://fsw-challenge-ch10-api-dev.herokuapp.com/api'
 const configJSON = {
     headers: {
         'Content-Type': 'application/json'
-        // 'Authorization': `${localStorage.getItem('accessToken')}`
     }
 }
 
@@ -30,6 +29,7 @@ const getProfile = () => async(dispatch) => {
         })
     }
 }
+
 
 export default {
     getProfile

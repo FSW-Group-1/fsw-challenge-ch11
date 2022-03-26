@@ -17,6 +17,7 @@ class Profile extends Component {
     this.state = {
       show: false,
       data: {},
+      isLoading: true
     }
   }
 
@@ -32,10 +33,12 @@ class Profile extends Component {
     //   },
     // }
 
-    this.props.getProfile()
-    this.setState({
-      data: this.props.profile.data
-    })
+    // this.props.getProfile().then(data => {
+    //   console.log(data)
+    // })
+    // this.setState({
+    //   data: this.props.profile.data
+    // })
 
     // axios.get(`https://fsw-challenge-ch10-api-dev.herokuapp.com/api/me`, config).then((res) => {
     //   // console.log(res)
@@ -48,6 +51,23 @@ class Profile extends Component {
     //     details: res.data.data.Details,
     //   })
     // })
+    this.props.getProfile()
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.profile)
+    const result = this.props.profile
+    if(!result.isLoading && this.state.isLoading) {
+      this.setState({
+        data: result.data,
+        username: result.data.username,
+        description: result.data.description,
+        point: result.data.point,
+        image: result.data.iamge,
+        details: result.data.details,
+        isLoading: false
+      })
+    }
   }
 
   handleSubmit = async (event) => {
@@ -112,8 +132,10 @@ class Profile extends Component {
 
   render() {
     const { details } = this.state
-    // console.log(this.props.profile.data)
-    console.log(this.state.data)
+    // details.data = this.props.profile.data
+    // console.log(this.props.profile)
+    // console.log(details)
+    // console.log(this.state.data)
     return (
       <Layout title="Profile">
         <div>
