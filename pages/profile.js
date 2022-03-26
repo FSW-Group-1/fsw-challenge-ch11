@@ -33,7 +33,7 @@ class Profile extends Component {
   componentDidUpdate() {
     // console.log(this.props.profile)
     const result = this.props.profile
-    console.log(result)
+    // console.log(result)
     if(!result.isLoading && this.state.isLoading) {
       this.setState({
         data: result.data,
