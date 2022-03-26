@@ -4,9 +4,11 @@ import Layout  from './components/layout'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Image from 'next/image'
 import axios from 'axios'
-import { connect } from 'react-redux'
 import userAction from '../redux/action/userAction'
 import privateAuth from '../Auth/privateAuth'
+
+import { connect } from 'react-redux'
+import profileAction from"../redux/action/profileAction"
 
 class Profile extends Component {
   constructor(props) {
@@ -15,31 +17,34 @@ class Profile extends Component {
     this.state = {
       show: false,
       data: {},
+      isLoading: true
     }
   }
 
   set = (name) => (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     this.setState({ [name]: event.target.value })
   }
 
   componentDidMount() {
-    const config = {
-      headers: {
-        authorization: `${localStorage.getItem('accessToken')}`,
-      },
-    }
-    axios.get(`https://fsw-challenge-ch10-api-dev.herokuapp.com/api/me`, config).then((res) => {
-      console.log(res)
+    this.props.getProfile()
+  }
+
+  componentDidUpdate() {
+    // console.log(this.props.profile)
+    const result = this.props.profile
+    // console.log(result)
+    if(!result.isLoading && this.state.isLoading) {
       this.setState({
-        data: res.data.data,
-        username: res.data.data.username,
-        description: res.data.data.description,
-        point: res.data.data.point,
-        image: res.data.data.imageLink,
-        details: res.data.data.Details,
+        data: result.data,
+        username: result.data.username,
+        description: result.data.description,
+        point: result.data.point,
+        image: result.data.iamge,
+        details: result.data.Details,
+        isLoading: false
       })
-    })
+    }
   }
 
   handleSubmit = async (event) => {
@@ -67,7 +72,7 @@ class Profile extends Component {
     if (details != undefined) {
       {
         Object.keys(details).map(function (name, index) {
-          console.log(details[name].point)
+          // console.log(details[name].point)
           return (
             <Card style={{ width: '18rem' }} key={index} className="m-3">
               <Card.Img
@@ -104,6 +109,8 @@ class Profile extends Component {
 
   render() {
     const { details } = this.state
+    // console.log(this.props.auth)
+    // console.log(details)
     return (
       <Layout title="Profile">
         <div>
@@ -167,12 +174,12 @@ class Profile extends Component {
               {/* {details != undefined ? this.showDetails() : <div>Loading...</div>} */}
               {details != undefined ? (
                 Object.keys(details).map(function (name, index) {
-                  console.log(details[name].point)
+                  // console.log(details[name].point)
                   let imagePath_ = '/../public/assets/game-card-img/'
                   if (!details[name].Game.imageLink) {
                     details[name].Game.imageLink = 'dummy.png'
                   }
-                  console.log(imagePath_ + details[name].Game.imageLink)
+                  // console.log(imagePath_ + details[name].Game.imageLink)
                   return (
                     <Card style={{ width: '18rem' }} key={index} className="m-3 bg-dark p-1">
                       <Image
@@ -200,4 +207,9 @@ class Profile extends Component {
   }
 }
 
-export default connect((state) => state, userAction)(privateAuth(Profile))
+// export default connect((state) => state, userAction)(privateAuth(Profile))
+
+export default connect(
+  state => state,
+  profileAction
+)(Profile)
