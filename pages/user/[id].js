@@ -6,6 +6,8 @@ import style from '../../styles/Profile.module.css'
 import Image from 'next/image'
 
 import axios from 'axios'
+import { connect } from 'react-redux'
+import userProfileAction from '../../redux/action/userProfileAction'
 
 function DetailUser() {
   const router = useRouter()
@@ -93,4 +95,8 @@ function DetailUser() {
   )
 }
 
-export default DetailUser
+// export default DetailUser
+export default connect(
+  state => state,
+  userProfileAction
+)(DetailUser)
