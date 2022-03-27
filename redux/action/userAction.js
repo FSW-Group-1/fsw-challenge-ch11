@@ -8,7 +8,9 @@ import {
      } from "../types";
 
 // const accessToken = localStorage.getItem('accessToken')
-const apiURL = 'https://fsw-challenge-ch10-api-dev.herokuapp.com/api'
+// const apiURL = 'https://fsw-challenge-ch10-api-dev.herokuapp.com/api'
+const apiURL = 'http://localhost:8000/api'
+
 const configJSON = {
     headers: {
         'Content-Type': 'application/json'
@@ -62,6 +64,7 @@ const loginUser = (dataUser) => async dispatch => {
 }
 
 
+
 const logOut = () => async (dispatch) =>{
     console.log('Logged OUT')
     localStorage.removeItem('accessToken')
@@ -77,16 +80,23 @@ const checkTokenValid = () => async (dispatch) => {
             authorization: `${localStorage.getItem('accessToken')}`,
         },
     }
+    console.log(localStorage.getItem('accessToken'))
     if(localStorage.getItem('accessToken') != null){
         const result = await axios.get(`${apiURL}/verifytoken`, config)
+                            .catch(error => {
+                                console.log(error.response)
+                                dispatch(logOut())
+                            })
         // console.log(result.data)
-        if(result.data.err == null){
-            // console.log('Dispatching Log In')
-            dispatch({
-                type: LOG_IN,
-            })
-        }else{
-            logOut()
+        if(result != null){
+            if(result.data.err == null){
+                 // console.log('Dispatching Log In')
+                 dispatch({
+                     type: LOG_IN,
+                 })
+             }else{
+                dispatch(logOut())
+             }
         }
     }else{
         dispatch({
