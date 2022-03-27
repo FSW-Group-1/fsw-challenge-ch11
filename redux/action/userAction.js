@@ -80,7 +80,7 @@ const checkTokenValid = () => async (dispatch) => {
             authorization: `${localStorage.getItem('accessToken')}`,
         },
     }
-    console.log(localStorage.getItem('accessToken'))
+    // console.log(localStorage.getItem('accessToken'))
     if(localStorage.getItem('accessToken') != null){
         const result = await axios.get(`${apiURL}/verifytoken`, config)
                             .catch(error => {
