@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Col, Row, Container, Form, Button, Modal } from 'react-bootstrap'
-import Layout  from './components/layout'
+import Layout from './components/layout'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Image from 'next/image'
 import axios from 'axios'
@@ -8,7 +8,7 @@ import userAction from '../redux/action/userAction'
 import privateAuth from '../Auth/privateAuth'
 
 import { connect } from 'react-redux'
-import profileAction from"../redux/action/profileAction"
+import profileAction from '../redux/action/profileAction'
 
 class Profile extends Component {
   constructor(props) {
@@ -17,7 +17,9 @@ class Profile extends Component {
     this.state = {
       show: false,
       data: {},
-      isLoading: true
+      isLoading: true,
+      fileInput: '',
+      previewSource: '',
     }
   }
 
@@ -26,6 +28,28 @@ class Profile extends Component {
     this.setState({ [name]: event.target.value })
   }
 
+  handleInputChange = (e) => {
+    const file = e.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      // setPreviewSource(reader.result)
+      // this.state.previewSource(reader.result)
+      this.setState({
+        previewSource: reader.result,
+      })
+    }
+  }
+
+  // previewFile = (file) => {
+  //   const reader = new FileReader()
+  //   reader.readAsDataURL(file)
+  //   reader.onloadend = () => {
+  //     // setPreviewSource(reader.result)
+  //     this.state.previewSource(reader.result)
+  //   }
+  // }
+
   componentDidMount() {
     this.props.getProfile()
   }
@@ -33,32 +57,39 @@ class Profile extends Component {
   componentDidUpdate() {
     // console.log(this.props.profile)
     const result = this.props.profile
-    // console.log(result)
-    if(!result.isLoading && this.state.isLoading) {
+    console.log('result', result)
+    if (!result.isLoading && this.state.isLoading) {
       this.setState({
         data: result.data,
         username: result.data.username,
         description: result.data.description,
         point: result.data.point,
-        image: result.data.iamge,
+        image: result.data.imageLink,
         details: result.data.Details,
-        isLoading: false
+        imageId: result.data.imageID,
+        isLoading: false,
       })
     }
   }
 
   handleSubmit = async (event) => {
-    const { username, description, image } = this.state
+    const { username, description, previewSource, imageId } = this.state
     event.preventDefault()
 
     if (description.length > 200) {
       return alert('Your description has surpassed the maximum amount!')
     }
+
+    if (!this.state.previewSource) {
+      return
+    }
+
     try {
       await this.props.updateUser({
         username,
         description,
-        imageLink: image,
+        imageLink: previewSource,
+        imageID: imageId,
       })
 
       alert('Your information has been updated!')
@@ -143,11 +174,18 @@ class Profile extends Component {
                     <Modal.Title>Enter image link to update your profile!</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <input className="form-control" onChange={this.set('image')} />
+                    <input type="file" className="form-control" onChange={this.handleInputChange} value={this.state.fileInput} />
+
+                    {this.state.previewSource && (
+                      <div>
+                        <h6 style={{ margin: '5px 0' }}>Image Sementara</h6>
+                        <img src={this.state.previewSource} width={400} height={300} />
+                      </div>
+                    )}
                   </Modal.Body>
                   <Modal.Footer>
                     <Button variant="secondary" onClick={this.handleClose}>
-                      Close
+                      Simpan Sementara
                     </Button>
                   </Modal.Footer>
                 </Modal>
@@ -185,7 +223,7 @@ class Profile extends Component {
                       <Image
                         width={300}
                         height={150}
-                        alt='game'
+                        alt="game"
                         objectFit="fit"
                         quality={100}
                         src={details[name].Game.imageLink}
@@ -209,7 +247,4 @@ class Profile extends Component {
 
 // export default connect((state) => state, userAction)(privateAuth(Profile))
 
-export default connect(
-  state => state,
-  profileAction
-)(Profile)
+export default connect((state) => state, profileAction)(Profile)
