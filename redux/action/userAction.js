@@ -91,7 +91,7 @@ const checkTokenValid = () => async (dispatch) => {
       console.log(error.response)
       dispatch(logOut())
     })
-    // console.log(result.data)
+    console.log(result)
     if (result != null) {
       if (result.data.err == null) {
         // console.log('Dispatching Log In')

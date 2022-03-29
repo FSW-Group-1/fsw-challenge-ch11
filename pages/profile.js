@@ -6,7 +6,7 @@ import Image from 'next/image'
 import axios from 'axios'
 import userAction from '../redux/action/userAction'
 import privateAuth from '../Auth/privateAuth'
-
+import Router from 'next/router';
 import { connect } from 'react-redux'
 import profileAction from '../redux/action/profileAction'
 
@@ -75,9 +75,10 @@ class Profile extends Component {
   handleSubmit = async (event) => {
     const { username, description, previewSource, imageId } = this.state
     event.preventDefault()
-
-    if (description.length > 200) {
-      return alert('Your description has surpassed the maximum amount!')
+    if(description != null){
+      if (description.length > 200) {
+        return alert('Your description has surpassed the maximum amount!')
+      }
     }
 
     if (!this.state.previewSource) {
@@ -93,6 +94,7 @@ class Profile extends Component {
       })
 
       alert('Your information has been updated!')
+      Router.reload('/profile')
     } catch (err) {
       console.log(err)
     }
@@ -247,4 +249,4 @@ class Profile extends Component {
 
 // export default connect((state) => state, userAction)(privateAuth(Profile))
 
-export default connect((state) => state, profileAction)(Profile)
+export default connect((state) => state, profileAction)(privateAuth(Profile))
