@@ -50,9 +50,24 @@ const getProfile = () => async (dispatch) => {
   }
 }
 
+const getOtherUser = (id) => async(dispatch) => {
+  try {
+    dispatch({
+      type: OTHER_PROFILE_REQUEST
+    })
+    const { data } = await axios.get(`${apiURL}/user/${id}`)
 
+    dispatch({
+      type: OTHER_PROFILE_FINISHED,
+      payload: data.data
+    })
+  } catch (error) {
+    
+  }
+}
 
 export default {
   getProfile,
   updateUser,
+  getOtherUser
 }
