@@ -5,8 +5,7 @@ import { PROFILE_REQUEST, PROFILE_FINISHED, PROFILE_FAILED,
         ALL_USER_FAILED, ALL_USER_FINISHED, ALL_USER_REQUEST
 } from '../types'
 
-// const apiURL = 'https://fsw-challenge-ch10-api-dev.herokuapp.com/api'
-const apiURL = 'http://localhost:8000/api'
+const apiURL = process.env.API_URL
 
 const configJSON = {
   headers: {

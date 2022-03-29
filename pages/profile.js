@@ -3,7 +3,6 @@ import { Card, Col, Row, Container, Form, Button, Modal } from 'react-bootstrap'
 import Layout from './components/layout'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Image from 'next/image'
-import axios from 'axios'
 import userAction from '../redux/action/userAction'
 import privateAuth from '../Auth/privateAuth'
 import Router from 'next/router';

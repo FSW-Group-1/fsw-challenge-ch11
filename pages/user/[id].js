@@ -7,14 +7,11 @@ import Image from 'next/image'
 import { connect } from 'react-redux'
 import profileAction from '../../redux/action/profileAction'
 
-import axios from 'axios'
-
 function DetailUser(props) {
   const router = useRouter()
   const { id } = router.query
   const [data, setDataFetch] = useState()
   const [loading, setLoading] = useState(false)
-  const apiURL = `http://localhost:8000/api`
   useEffect(() => {
     props.getOtherUser(id)
   }, [])
