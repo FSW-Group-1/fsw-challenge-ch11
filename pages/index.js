@@ -16,11 +16,11 @@ class GameCard extends Component {
   render () {
     const { item } = this.props
     // console.log(img)
-    let imagePath_ = "/../public/assets/game-card-img/"
+    let imagePath_ = "/assets/game-card-img/"
     if(!item.imageLink) {
         item.imageLink = "dummy.png"
-    }    
-    imagePath_ = imagePath_ 
+    }
+    imagePath_ = imagePath_ + item.imageLink
 
     const linkHref = '/game-detail/'+item.id 
 
@@ -29,7 +29,8 @@ class GameCard extends Component {
         <Link href={linkHref} className='text-center p-0 border-0'>
             <Image
               alt="Game thumbnail"
-              src={item.imageLink}
+              // src={item.imageLink}
+              src={imagePath_}
               width={300}
               height={150}
               objectFit="fit"
