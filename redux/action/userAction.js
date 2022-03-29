@@ -16,7 +16,9 @@ import {
   LOG_IN,
 } from '../types'
 
-const apiURL = process.env.API_URL
+// const apiURL = process.env.API_URL
+const apiURL = 'http://localhost:8000/api'
+
 
 const configJSON = {
   headers: {

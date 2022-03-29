@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { GAMELIST_REQUEST, GAMELIST_FINISHED, GAMELIST_FAILED } from '../types'
 
-const apiURL = process.env.API_URL
+// const apiURL = process.env.API_URL
+const apiURL = 'http://localhost:8000/api'
 
 const configJSON = {
   headers: {
@@ -14,6 +15,7 @@ const getGameList = () => async (dispatch) => {
     dispatch({
       type: GAMELIST_REQUEST,
     })
+    console.log(apiURL)
     const { data } = await axios.get(`${apiURL}/allgame`, configJSON)
     dispatch({
       type: GAMELIST_FINISHED,

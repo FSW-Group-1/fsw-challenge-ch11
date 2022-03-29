@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { GAMEDETAIL_REQUEST, GAMEDETAIL_FINISHED, GAMEDETAIL_FAILED } from '../types'
 
-const apiURL = process.env.API_URL
+const apiURL = 'http://localhost:8000/api'
 
 const configJSON = {
   headers: {
