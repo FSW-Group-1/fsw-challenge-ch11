@@ -127,6 +127,7 @@ const updateScore = (userData) => async (dispatch) => {
   } catch (error) {}
 }
 
+
 export default {
   registerUser,
   loginUser,
