@@ -16,8 +16,8 @@ import {
   LOG_IN,
 } from '../types'
 
-// const apiURL = process.env.API_URL
-const apiURL = 'http://localhost:8000/api'
+const apiURL = 'https://fsw-challenge-ch11-api-dev.herokuapp.com/api'
+// const apiURL = 'http://localhost:8000/api'
 
 
 const configJSON = {

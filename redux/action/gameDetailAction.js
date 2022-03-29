@@ -1,7 +1,12 @@
 import axios from 'axios'
 import { GAMEDETAIL_REQUEST, GAMEDETAIL_FINISHED, GAMEDETAIL_FAILED } from '../types'
 
+<<<<<<< HEAD
 const apiURL = 'http://localhost:8000/api'
+=======
+const apiURL = 'https://fsw-challenge-ch11-api-dev.herokuapp.com/api'
+// const apiURL = 'http://localhost:8000/api'
+>>>>>>> 511ff3cd906991b1e53a629e66cd41ca082c0ff2
 
 const configJSON = {
   headers: {

@@ -5,8 +5,8 @@ import { PROFILE_REQUEST, PROFILE_FINISHED, PROFILE_FAILED,
         ALL_USER_FAILED, ALL_USER_FINISHED, ALL_USER_REQUEST
 } from '../types'
 
-// const apiURL = process.env.API_URL
-const apiURL = 'http://localhost:8000/api'
+const apiURL = 'https://fsw-challenge-ch11-api-dev.herokuapp.com/api'
+// const apiURL = 'http://localhost:8000/api'
 
 
 const configJSON = {
