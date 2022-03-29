@@ -15,7 +15,7 @@ const getGameList = () => async (dispatch) => {
     dispatch({
       type: GAMELIST_REQUEST,
     })
-    console.log(apiURL)
+    
     const { data } = await axios.get(`${apiURL}/allgame`, configJSON)
     dispatch({
       type: GAMELIST_FINISHED,
