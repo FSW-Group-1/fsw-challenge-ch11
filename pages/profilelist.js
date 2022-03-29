@@ -14,7 +14,7 @@ class ProfileList extends Component {
   }
 
   componentDidMount() {
-    axios.get(`https://fsw-challenge-ch10-api-dev.herokuapp.com/api/users`).then((res) => {
+    axios.get(`https://fsw-challenge-ch11-api-dev.herokuapp.com/api/users`).then((res) => {
       console.log(res)
       this.setState({
         data: res.data.data,

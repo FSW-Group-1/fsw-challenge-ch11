@@ -16,7 +16,7 @@ function DetailUser() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    axios.get(`https://fsw-challenge-ch10-api-dev.herokuapp.com/api/user/${id}`).then((res) => {
+    axios.get(`https://fsw-challenge-ch11-api-dev.herokuapp.com/api/user/${id}`).then((res) => {
       setDataFetch(res.data.data)
       setLoading(false)
     })
