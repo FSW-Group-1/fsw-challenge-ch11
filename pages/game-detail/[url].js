@@ -16,17 +16,17 @@ import gameDetailAction from "../../redux/action/gameDetailAction";
 const GameDetail = (props) => {
     const router = useRouter()
     const { url } = router.query
-    let gameUrl = 'https://fsw-challenge-ch10-api-dev.herokuapp.com/api/gamedetail/'
+    let gameUrl = 'https://fsw-challenge-ch11-api-dev.herokuapp.com/api/gamedetail/'
     gameUrl = gameUrl + url
 
     // const [data, setData] = useState()
     const [isLoading, setIsLoading] = useState(true)
-    const [didMount, setDidMount] = useState(true)
+    const [didMount, setDidMount] = useState(false)
 
     useEffect(async() => {
-        if(didMount) {
+        if(!didMount) {
             await props.getGameDetail(url)
-            setDidMount(props.getGameDetail.isLoading)
+            setDidMount(true)
         }
         // if(props.gameDetail.isLoading) {
         //     // this.props.getGameDetail()
@@ -44,10 +44,10 @@ const GameDetail = (props) => {
 
     const content = () => {
         const data = props.gameDetail.data
-        let imagePath_ = "/../public/assets/game-card-img/"
+        let imagePath_ = "/assets/game-card-img/"
         if(!data.imageLink) {
             data.imageLink = "dummy.png"
-        }    
+        }
         imagePath_ = imagePath_ + data.imageLink
         
         let gameLink = data.gameLink
@@ -68,7 +68,8 @@ const GameDetail = (props) => {
                     <Col md={5}>
                         <Image
                             alt="Game thumbnail"
-                            src={data.imageLink}
+                            src={imagePath_}
+                            // src={data.imageLink}
                             width={500}
                             height={250}
                             objectFit="fit"

@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { GAMELIST_REQUEST, GAMELIST_FINISHED, GAMELIST_FAILED } from '../types'
 
-// const apiURL = 'https://fsw-challenge-ch10-api-dev.herokuapp.com/api'
-const apiURL = 'http://localhost:8000/api'
+const apiURL = 'https://fsw-challenge-ch11-api-dev.herokuapp.com/api'
+// const apiURL = 'http://localhost:8000/api'
 
 const configJSON = {
   headers: {
@@ -24,7 +24,7 @@ const getGameList = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GAMELIST_FAILED,
-      payload: error.response.data.result,
+      payload: error,
     })
     // console.log(error.response.data.result)
   }
