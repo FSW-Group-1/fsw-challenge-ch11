@@ -4,28 +4,27 @@ import Layout from '../components/layout'
 import { useRouter } from 'next/router'
 import style from '../../styles/Profile.module.css'
 import Image from 'next/image'
-
-import axios from 'axios'
 import { connect } from 'react-redux'
-import userProfileAction from '../../redux/action/userProfileAction'
+import profileAction from '../../redux/action/profileAction'
 
-function DetailUser() {
+function DetailUser(props) {
   const router = useRouter()
   const { id } = router.query
   const [data, setDataFetch] = useState()
   const [loading, setLoading] = useState(false)
-
   useEffect(() => {
-    axios.get(`https://fsw-challenge-ch11-api-dev.herokuapp.com/api/user/${id}`).then((res) => {
-      setDataFetch(res.data.data)
-      setLoading(false)
-    })
+    props.getOtherUser(id)
   }, [])
+
+
+useEffect(() => {
+    setDataFetch(props.profile.data)
+    setLoading(props.profile.isLoading)
+}, props.profile.data)
 
   if (loading || !data) return <div> Loading... </div>
 
   function showImage() {
-    let imagePath_ = '/../public/assets/game-card-img/'
     if (!data.imageLink) {
       return <Image alt='image' width={300} height={150} objectFit="fit" quality={100} src={"/_next/static/media/dummy.75d624b0.png"} className="img-thumbnail" />
     } else {
@@ -40,7 +39,7 @@ function DetailUser() {
       )
     }
   }
-
+ 
   return (
     <div>
       <Layout title="Profile">
@@ -96,7 +95,4 @@ function DetailUser() {
 }
 
 // export default DetailUser
-export default connect(
-  state => state,
-  userProfileAction
-)(DetailUser)
+export default connect((state => state), profileAction)(DetailUser)

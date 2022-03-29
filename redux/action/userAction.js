@@ -16,9 +16,9 @@ import {
   LOG_IN,
 } from '../types'
 
-// const accessToken = localStorage.getItem('accessToken')
 const apiURL = 'https://fsw-challenge-ch11-api-dev.herokuapp.com/api'
 // const apiURL = 'http://localhost:8000/api'
+
 
 const configJSON = {
   headers: {
@@ -91,7 +91,7 @@ const checkTokenValid = () => async (dispatch) => {
       console.log(error.response)
       dispatch(logOut())
     })
-    // console.log(result.data)
+    // console.log(result)
     if (result != null) {
       if (result.data.err == null) {
         // console.log('Dispatching Log In')
@@ -126,6 +126,7 @@ const updateScore = (userData) => async (dispatch) => {
     })
   } catch (error) {}
 }
+
 
 export default {
   registerUser,

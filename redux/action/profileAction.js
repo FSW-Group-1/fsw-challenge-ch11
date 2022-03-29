@@ -1,8 +1,13 @@
 import axios from 'axios'
-import { PROFILE_REQUEST, PROFILE_FINISHED, PROFILE_FAILED, UPDATE_FINISHED, UPDATE_REQUEST, UPDATE_FAILED } from '../types'
+import { PROFILE_REQUEST, PROFILE_FINISHED, PROFILE_FAILED, 
+        UPDATE_FINISHED, UPDATE_REQUEST, UPDATE_FAILED,
+        OTHER_PROFILE_FINISHED, OTHER_PROFILE_REQUEST, OTHER_PROFILE_FAILED,
+        ALL_USER_FAILED, ALL_USER_FINISHED, ALL_USER_REQUEST
+} from '../types'
 
 const apiURL = 'https://fsw-challenge-ch11-api-dev.herokuapp.com/api'
 // const apiURL = 'http://localhost:8000/api'
+
 
 const configJSON = {
   headers: {
@@ -47,7 +52,45 @@ const getProfile = () => async (dispatch) => {
   }
 }
 
+const getOtherUser = (id) => async(dispatch) => {
+  try {
+    dispatch({
+      type: OTHER_PROFILE_REQUEST
+    })
+    const { data } = await axios.get(`${apiURL}/user/${id}`)
+
+    dispatch({
+      type: OTHER_PROFILE_FINISHED,
+      payload: data.data
+    })
+  } catch (error) {
+    
+  }
+}
+
+const getAllUser = () => async(dispatch) => {
+  try {
+    dispatch({
+      type: ALL_USER_REQUEST
+    })
+
+    const { data } = await axios.get(`${apiURL}/users`)
+    
+    dispatch({
+      type: ALL_USER_FINISHED,
+      payload: data.data
+    })
+  } catch (error) {
+    dispatch({
+      type: ALL_USER_FAILED,
+      payload: error.response
+    })
+  }
+}
+
 export default {
   getProfile,
   updateUser,
+  getOtherUser,
+  getAllUser
 }

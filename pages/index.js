@@ -29,8 +29,8 @@ class GameCard extends Component {
         <Link href={linkHref} className='text-center p-0 border-0'>
             <Image
               alt="Game thumbnail"
-              // src={item.imageLink}
-              src={imagePath_}
+              src={item.imageLink}
+              // src={imagePath_}
               width={300}
               height={150}
               objectFit="fit"
