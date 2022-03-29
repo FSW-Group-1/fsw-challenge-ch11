@@ -3,7 +3,7 @@ import {
     USERPROFILE_REQUEST, USERPROFILE_FINISHED, USERPROFILE_FAILED
 } from "../types"
 
-const apiURL = 'https://fsw-challenge-ch10-api-dev.herokuapp.com/api'
+const apiURL = 'https://fsw-challenge-ch11-api-dev.herokuapp.com/api'
 const configJSON = {
     headers: {
         'Content-Type': 'application/json'
