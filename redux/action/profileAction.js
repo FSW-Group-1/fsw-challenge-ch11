@@ -1,5 +1,8 @@
 import axios from 'axios'
-import { PROFILE_REQUEST, PROFILE_FINISHED, PROFILE_FAILED, UPDATE_FINISHED, UPDATE_REQUEST, UPDATE_FAILED } from '../types'
+import { PROFILE_REQUEST, PROFILE_FINISHED, PROFILE_FAILED, 
+        UPDATE_FINISHED, UPDATE_REQUEST, UPDATE_FAILED,
+        OTHER_PROFILE_FINISHED, OTHER_PROFILE_REQUEST, OTHER_PROFILE_FAILED 
+} from '../types'
 
 // const apiURL = 'https://fsw-challenge-ch10-api-dev.herokuapp.com/api'
 const apiURL = 'http://localhost:8000/api'
@@ -46,6 +49,8 @@ const getProfile = () => async (dispatch) => {
     })
   }
 }
+
+
 
 export default {
   getProfile,
