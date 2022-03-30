@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Card, Col, Row, Container, Form, Button, Modal } from 'react-bootstrap'
-import Layout  from './components/layout'
+import Layout from './components/layout'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Image from 'next/image'
-import axios from 'axios'
-import { connect } from 'react-redux'
 import userAction from '../redux/action/userAction'
 import privateAuth from '../Auth/privateAuth'
+import Router from 'next/router';
+import { connect } from 'react-redux'
+import profileAction from '../redux/action/profileAction'
 
 class Profile extends Component {
   constructor(props) {
@@ -15,48 +16,84 @@ class Profile extends Component {
     this.state = {
       show: false,
       data: {},
+      isLoading: true,
+      fileInput: '',
+      previewSource: '',
     }
   }
 
   set = (name) => (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     this.setState({ [name]: event.target.value })
   }
 
-  componentDidMount() {
-    const config = {
-      headers: {
-        authorization: `${localStorage.getItem('accessToken')}`,
-      },
-    }
-    axios.get(`https://fsw-challenge-ch10-api-dev.herokuapp.com/api/me`, config).then((res) => {
-      console.log(res)
+  handleInputChange = (e) => {
+    const file = e.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      // setPreviewSource(reader.result)
+      // this.state.previewSource(reader.result)
       this.setState({
-        data: res.data.data,
-        username: res.data.data.username,
-        description: res.data.data.description,
-        point: res.data.data.point,
-        image: res.data.data.imageLink,
-        details: res.data.data.Details,
+        previewSource: reader.result,
       })
-    })
+    }
+  }
+
+  // previewFile = (file) => {
+  //   const reader = new FileReader()
+  //   reader.readAsDataURL(file)
+  //   reader.onloadend = () => {
+  //     // setPreviewSource(reader.result)
+  //     this.state.previewSource(reader.result)
+  //   }
+  // }
+
+  componentDidMount() {
+    this.props.getProfile()
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.profile)
+    const result = this.props.profile
+    // console.log('result', result)
+    if (!result.isLoading && this.state.isLoading) {
+      this.setState({
+        data: result.data,
+        username: result.data.username,
+        description: result.data.description,
+        point: result.data.point,
+        image: result.data.imageLink,
+        details: result.data.Details,
+        imageId: result.data.imageID,
+        isLoading: false,
+      })
+    }
   }
 
   handleSubmit = async (event) => {
-    const { username, description, image } = this.state
+    const { username, description, previewSource, imageId } = this.state
     event.preventDefault()
-
-    if (description.length > 200) {
-      return alert('Your description has surpassed the maximum amount!')
+    if(description != null){
+      if (description.length > 200) {
+        return alert('Your description has surpassed the maximum amount!')
+      }
     }
+
+    if (!this.state.previewSource) {
+      return
+    }
+
     try {
       await this.props.updateUser({
         username,
         description,
-        imageLink: image,
+        imageLink: previewSource,
+        imageID: imageId,
       })
 
       alert('Your information has been updated!')
+      Router.reload('/profile')
     } catch (err) {
       console.log(err)
     }
@@ -64,10 +101,11 @@ class Profile extends Component {
 
   showDetails = () => {
     const { details } = this.state
+    // console.log(details.image);
     if (details != undefined) {
       {
         Object.keys(details).map(function (name, index) {
-          console.log(details[name].point)
+          // console.log(details[name].point)
           return (
             <Card style={{ width: '18rem' }} key={index} className="m-3">
               <Card.Img
@@ -104,6 +142,8 @@ class Profile extends Component {
 
   render() {
     const { details } = this.state
+    // console.log(this.props.auth)
+    // console.log(details)
     return (
       <Layout title="Profile">
         <div>
@@ -136,11 +176,18 @@ class Profile extends Component {
                     <Modal.Title>Enter image link to update your profile!</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <input className="form-control" onChange={this.set('image')} />
+                    <input type="file" className="form-control" onChange={this.handleInputChange} value={this.state.fileInput} />
+
+                    {this.state.previewSource && (
+                      <div>
+                        <h6 style={{ margin: '5px 0' }}>Image Sementara</h6>
+                        <img src={this.state.previewSource} width={400} height={300} />
+                      </div>
+                    )}
                   </Modal.Body>
                   <Modal.Footer>
                     <Button variant="secondary" onClick={this.handleClose}>
-                      Close
+                      Simpan Sementara
                     </Button>
                   </Modal.Footer>
                 </Modal>
@@ -167,20 +214,22 @@ class Profile extends Component {
               {/* {details != undefined ? this.showDetails() : <div>Loading...</div>} */}
               {details != undefined ? (
                 Object.keys(details).map(function (name, index) {
-                  console.log(details[name].point)
-                  let imagePath_ = '/../public/assets/game-card-img/'
+                  // console.log(details[name].point)
+                  let imagePath_ = '/assets/game-card-img/'
                   if (!details[name].Game.imageLink) {
                     details[name].Game.imageLink = 'dummy.png'
                   }
-                  console.log(imagePath_ + details[name].Game.imageLink)
+                  imagePath_ = imagePath_ + details[name].Game.imageLink
+                  console.log(imagePath_)
                   return (
                     <Card style={{ width: '18rem' }} key={index} className="m-3 bg-dark p-1">
                       <Image
                         width={300}
                         height={150}
-                        alt='game'
+                        alt="game"
                         objectFit="fit"
                         quality={100}
+                        // src={details[name].Game.imageLink}
                         src={details[name].Game.imageLink}
                         className="img-thumbnail"
                       />
@@ -200,4 +249,6 @@ class Profile extends Component {
   }
 }
 
-export default connect((state) => state, userAction)(privateAuth(Profile))
+// export default connect((state) => state, userAction)(privateAuth(Profile))
+
+export default connect((state) => state, profileAction)(privateAuth(Profile))
