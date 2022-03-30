@@ -31,7 +31,7 @@ class Login extends Component{
       if(!email || !password) return alert('Please insert missing credentials!')
       
       await this.props.loginUser(loginData)
-      console.log(this.props.auth)
+      // console.log(this.props.auth)
       if(this.props.auth.error){
         alert('Login Failed!')
         Router.push('/login')
