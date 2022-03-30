@@ -54,7 +54,7 @@ class Profile extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props.profile)
+    // console.log(this.props.profile)
     const result = this.props.profile
     // console.log('result', result)
     if (!result.isLoading && this.state.isLoading) {
@@ -215,12 +215,12 @@ class Profile extends Component {
               {details != undefined ? (
                 Object.keys(details).map(function (name, index) {
                   // console.log(details[name].point)
-                  let imagePath_ = '/assets/game-card-img/'
-                  if (!details[name].Game.imageLink) {
-                    details[name].Game.imageLink = 'dummy.png'
-                  }
-                  imagePath_ = imagePath_ + details[name].Game.imageLink
-                  console.log(imagePath_)
+                  // let imagePath_ = '/assets/game-card-img/'
+                  // if (!details[name].Game.imageLink) {
+                  //   details[name].Game.imageLink = 'dummy.png'
+                  // }
+                  // imagePath_ = imagePath_ + details[name].Game.imageLink
+                  // console.log(imagePath_)
                   return (
                     <Card style={{ width: '18rem' }} key={index} className="m-3 bg-dark p-1">
                       <Image
@@ -229,8 +229,8 @@ class Profile extends Component {
                         alt="game"
                         objectFit="fit"
                         quality={100}
-                        // src={details[name].Game.imageLink}
                         src={details[name].Game.imageLink}
+                        // src={imagePath_}
                         className="img-thumbnail"
                       />
                       <span className="text-white text-center fs-3 ">{details[name].Game.name}</span>
