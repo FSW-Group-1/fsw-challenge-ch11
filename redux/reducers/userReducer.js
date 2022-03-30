@@ -3,7 +3,7 @@ import {
     LOGIN_FINISHED, LOGIN_REQUEST, LOGIN_FAILED, 
     REGISTER_FINISHED, REGISTER_REQUEST, REGISTER_FAILED,
     UPDATE_FINISHED, UPDATE_REQUEST, UPDATE_FAILED,
-    LOG_OUT, LOG_IN
+    LOG_OUT, LOG_IN, AUTH_RESET
      } from "../types";
 
 // const initialState = [{
@@ -29,9 +29,16 @@ export const authReducer = (state = {}, action) =>{
         case LOGIN_FAILED:
             return{
                 ...state,
+                isLoading: false,
                 error: action.payload
             }
-        
+        case AUTH_RESET:
+            return{
+                ...state,
+                isLoading: false,
+                auth: null,
+                error: null
+            }
         case LOG_IN:
             return{
                 ...state,

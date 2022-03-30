@@ -15,7 +15,7 @@ class ProfileList extends Component {
 
   async componentDidMount() {
     await this.props.getAllUser();
-    console.log(this.props.profile)
+    // console.log(this.props.profile)
     if(!this.props.profile.isLoading){
       this.setState({
         data: this.props.profile.data

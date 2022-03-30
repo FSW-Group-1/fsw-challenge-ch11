@@ -6,6 +6,7 @@ import {
   LOGIN_FINISHED,
   LOGIN_REQUEST,
   LOGIN_FAILED,
+  AUTH_RESET,
   REGISTER_FINISHED,
   REGISTER_REQUEST,
   REGISTER_FAILED,
@@ -45,6 +46,11 @@ const registerUser = (dataUser) => async (dispatch) => {
   }
 }
 
+const authReset = () => async(dispatch) => {
+  dispatch({
+    type: AUTH_RESET
+  })
+}
 const loginUser = (dataUser) => async (dispatch) => {
   try {
     dispatch({
@@ -134,4 +140,5 @@ export default {
   logOut,
   checkTokenValid,
   updateScore,
+  authReset
 }
