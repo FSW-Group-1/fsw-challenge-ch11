@@ -81,22 +81,34 @@ class Profile extends Component {
     }
 
     if (!this.state.previewSource) {
-      return
+      try {
+        await this.props.updateUser({
+          username,
+          description,
+        })
+  
+        alert('Your information has been updated!')
+        Router.reload('/profile')
+      } catch (err) {
+        console.log(err)
+      }
+    }else{
+      try {
+        await this.props.updateUser({
+          username,
+          description,
+          imageLink: previewSource,
+          imageID: imageId,
+        })
+  
+        alert('Your information has been updated!')
+        Router.reload('/profile')
+      } catch (err) {
+        console.log(err)
+      }
     }
 
-    try {
-      await this.props.updateUser({
-        username,
-        description,
-        imageLink: previewSource,
-        imageID: imageId,
-      })
-
-      alert('Your information has been updated!')
-      Router.reload('/profile')
-    } catch (err) {
-      console.log(err)
-    }
+    
   }
 
   showDetails = () => {
@@ -181,7 +193,7 @@ class Profile extends Component {
                     {this.state.previewSource && (
                       <div>
                         <h6 style={{ margin: '5px 0' }}>Image Sementara</h6>
-                        <img src={this.state.previewSource} width={400} height={300} />
+                        <Image alt='' src={this.state.previewSource} width={400} height={300} />
                       </div>
                     )}
                   </Modal.Body>
