@@ -18,6 +18,14 @@
     height: 100vh;   
 }
 
+.all {
+    padding-top: 5em;
+    /* background-image: linear-gradient(transparent 5em, black), url(/assets/istockphoto-1154634349-612x612.jpg), url(/assets/istockphoto-1154634349-612x612.jpg); */
+    background-color: black;
+    background-size: cover;
+    background-position: center; 
+}
+
 .header h1 {
     font-family: 'Bebas Neue', cursive;
     font-size: 5em;

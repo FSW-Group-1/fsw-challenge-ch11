@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react"
 import { useRouter } from "next/router";
 import Layout  from '../components/layout';
 import LoadingAnimation from '../components/loadingAnimation_1'
+import Player from '../components/player'
 
 import { Container, Row, Col} from 'react-bootstrap'
 import Image from 'next/image'
@@ -21,18 +22,18 @@ const GameDetail = (props) => {
 
     // const [data, setData] = useState()
     const [isLoading, setIsLoading] = useState(true)
-    const [didMount, setDidMount] = useState(false)
+    const [didMount, setdidMount] = useState(false)
+    const [title, setTitle] = useState('Loading ...')
 
-    useEffect(async() => {
+    useEffect(() => {
         if(!didMount) {
-            await props.getGameDetail(url)
-            setDidMount(true)
+            props.getGameDetail(url)
+            setdidMount(true)
+            // setTitle(props.gameDetail.data.name);
         }
-        // if(props.gameDetail.isLoading) {
-        //     // this.props.getGameDetail()
-        //     console.log('ladida')
-        // }
-        // props.getGameDetail()
+        if(props.gameDetail.data){
+            setTitle(props.gameDetail.data.name)
+        }
     })
 
     const loadingContent = () => {
@@ -43,6 +44,24 @@ const GameDetail = (props) => {
     }
 
     const content = () => {
+        const cover = (cover) => {
+            return (
+                <Image
+                    alt="Game thumbnail"
+                    // src={imagePath_}
+                    src={cover}
+                    width={500}
+                    height={250}
+                    objectFit="fit"
+                    quality={100}
+                />
+            )
+        }
+        const video = (cover, video) => {
+            return(
+                <Player image={cover} video={video} />
+            )
+        }
         const data = props.gameDetail.data
         let imagePath_ = "/assets/game-card-img/"
         if(!data.imageLink) {
@@ -53,7 +72,7 @@ const GameDetail = (props) => {
         let gameLink = data.gameLink
         let buttonLabel = ''
         let buttonClass = ''
-        if(data.gameLink) {
+        if(data.isAvailble) {
             buttonLabel = 'PLAY NOW'
             buttonClass = "btn main-button btn-warning mt-3"
         } else {
@@ -61,20 +80,14 @@ const GameDetail = (props) => {
             buttonLabel = 'Coming Soon ...'
             buttonClass = "btn main-button btn-secondary"
         }
+
+        // setTitle(data.name)
         return (
             <>
                 <h1 className="">{data.name}</h1>
                 <Row className="justify-content-center">
                     <Col md={5}>
-                        <Image
-                            alt="Game thumbnail"
-                            // src={imagePath_}
-                            src={data.imageLink}
-                            width={500}
-                            height={250}
-                            objectFit="fit"
-                            quality={100}
-                        />
+                        {data.isAvailble ? video(data.imageLink, data.videoLink) : cover(data.imageLink)}
                     </Col>   
                     <Col md={5}>
                         <Row>
@@ -102,15 +115,22 @@ const GameDetail = (props) => {
 
     return(
         <>
-            <Layout>
+            <Layout title={title}>
+                <div style={
+                    {
+                        backgroundColor: 'black'
+                    }
+                }>
                     <Container className={styles.header} fluid>
-                        <div className='pt-3 pb-3'>
+                        <div className='pt-3'>
                             <Container>
                                 { props.gameDetail.isLoading ?  loadingContent() : content()}
                                 {/* <h1>{data.name}</h1> */}
                             </Container>
                         </div>
                     </Container>
+                    {/* <Player /> */}
+                </div>
             </Layout>
         </>
     )
