@@ -21,18 +21,18 @@ const GameDetail = (props) => {
 
     // const [data, setData] = useState()
     const [isLoading, setIsLoading] = useState(true)
-    const [didMount, setDidMount] = useState(false)
+    const [didMount, setdidMount] = useState(false)
+    const [title, setTitle] = useState('Loading ...')
 
-    useEffect(async() => {
+    useEffect(() => {
         if(!didMount) {
-            await props.getGameDetail(url)
-            setDidMount(true)
+            props.getGameDetail(url)
+            setdidMount(true)
+            // setTitle(props.gameDetail.data.name);
         }
-        // if(props.gameDetail.isLoading) {
-        //     // this.props.getGameDetail()
-        //     console.log('ladida')
-        // }
-        // props.getGameDetail()
+        if(props.gameDetail.data){
+            setTitle(props.gameDetail.data.name)
+        }
     })
 
     const loadingContent = () => {
@@ -61,6 +61,8 @@ const GameDetail = (props) => {
             buttonLabel = 'Coming Soon ...'
             buttonClass = "btn main-button btn-secondary"
         }
+
+        // setTitle(data.name)
         return (
             <>
                 <h1 className="">{data.name}</h1>
@@ -102,7 +104,7 @@ const GameDetail = (props) => {
 
     return(
         <>
-            <Layout>
+            <Layout title={title}>
                     <Container className={styles.header} fluid>
                         <div className='pt-3 pb-3'>
                             <Container>
