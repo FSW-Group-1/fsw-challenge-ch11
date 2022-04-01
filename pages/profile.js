@@ -37,6 +37,7 @@ class Profile extends Component {
       this.setState({
         previewSource: reader.result,
       })
+      // console.log(reader.result)
     }
   }
 
@@ -188,7 +189,8 @@ class Profile extends Component {
                     <Modal.Title>Enter image link to update your profile!</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <input type="file" className="form-control" onChange={this.handleInputChange} value={this.state.fileInput} />
+                    {/* <input type="file" className="form-control" onChange={this.handleInputChange} value={this.state.fileInput} /> */}
+                    <input type="file" className="form-control" onChange={this.handleInputChange} />
 
                     {this.state.previewSource && (
                       <div>

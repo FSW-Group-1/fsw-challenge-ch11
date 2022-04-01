@@ -5,6 +5,7 @@ import Navbar from './navbar'
 import React from 'react'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'video-react/dist/video-react.css';
 import styles from '../../styles/Home.module.css'
 
 export default function Layout(props) {
