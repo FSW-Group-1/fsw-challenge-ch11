@@ -3,7 +3,8 @@ import { Player } from 'video-react';
 
 const url = 'https://res.cloudinary.com/damskgabj/video/upload/v1648853975/binarch11/videos/'
 
-export default props => {
+
+function VideoPlayer (props) {
     console.log("Props:")
     console.log(props)
   return (
@@ -15,3 +16,5 @@ export default props => {
     />
   );
 };
+
+export default VideoPlayer;

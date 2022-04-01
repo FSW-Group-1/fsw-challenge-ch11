@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from "react"
 import { useRouter } from "next/router";
 import Layout  from '../components/layout';
 import LoadingAnimation from '../components/loadingAnimation_1'
-import Player from '../components/player'
+import VideoPlayer from '../components/player'
 
 import { Container, Row, Col} from 'react-bootstrap'
 import Image from 'next/image'
@@ -59,7 +59,7 @@ const GameDetail = (props) => {
         }
         const video = (cover, video) => {
             return(
-                <Player image={cover} video={video} />
+                <VideoPlayer image={cover} video={video} />
             )
         }
         const data = props.gameDetail.data
