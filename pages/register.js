@@ -33,7 +33,13 @@ class Register extends Component{
      if(password !== passwordConfirm) return alert('Password did not match!')
      if(!agreeStatement) return alert('Please agree with the terms to continue!')
     await this.props.registerUser(dataUser)
-    Router.push('/login')
+    if(this.props.auth.error){
+      alert('Register failed!')
+      Router.push('/register')
+      await this.props.authReset()
+    }else{
+      Router.push('/login')
+    }
 
 }
     render(){
