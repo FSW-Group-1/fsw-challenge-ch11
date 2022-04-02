@@ -33,7 +33,7 @@ class Login extends Component{
       await this.props.loginUser(loginData)
       // console.log(this.props.auth)
       if(this.props.auth.error){
-        alert('Login Failed!')
+        alert('Login Failed! Try entering the right info!')
         Router.push('/login')
         await this.props.authReset()
       }else{

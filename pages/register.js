@@ -34,7 +34,7 @@ class Register extends Component{
      if(!agreeStatement) return alert('Please agree with the terms to continue!')
     await this.props.registerUser(dataUser)
     if(this.props.auth.error){
-      alert('Register failed!')
+      alert(this.props.auth.error.message || 'Register failed!')
       Router.push('/register')
       await this.props.authReset()
     }else{
