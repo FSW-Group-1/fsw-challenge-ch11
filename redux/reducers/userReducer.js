@@ -67,6 +67,7 @@ export const authReducer = (state = {}, action) =>{
         case REGISTER_FAILED:
             return{
                 ...state,
+                isLoading: false,
                 error: action.payload
             }
         case UPDATE_REQUEST:
