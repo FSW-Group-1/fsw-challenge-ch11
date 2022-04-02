@@ -40,9 +40,9 @@ const registerUser = (dataUser) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REGISTER_FAILED,
-      payload: error.response.data.result,
+      payload: error.response.data
     })
-    console.log(error.response.data.result)
+    console.log(error.response.data.message)
   }
 }
 
@@ -70,7 +70,7 @@ const loginUser = (dataUser) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOGIN_FAILED,
-      payload: error.response.data.result,
+      payload: error.response.data,
     })
     console.log(error.response.data.result)
   }
