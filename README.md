@@ -1,3 +1,18 @@
+# About
+This is Binar FullStack Project Wave-15. A collaboration between:
+
+- [`Medhawi`](https://github.com/meddhawi)
+- [`Grotius Hasiholan`](https://github.com/grotiuss)
+- [`Wildan Alif R`](https://github.com/wildanalifr)
+- [`Fauzan Hibatur Rahman`](https://github.com/fauzanhr)
+- [`Rizky Fazal Muttaqin`](https://github.com/rizkyfm)
+
+To see the deployment of the project click [`here`](https://fsw-challenge-ch11.vercel.app/)
+
+
+
+# Next JS
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
